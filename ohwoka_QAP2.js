@@ -122,87 +122,53 @@ function normalizeCoord(value) {
 };
 console.log(normalizeCoord("42.9755,-77.4369")); 
 console.log(normalizeCoord("[-77.4369, 42.9755]")); 
-*/
 
 // Question 6
+function normalizeCoord(value) {
+    const regex = /(-?\d+\.?\d*)/g;
+    let compared = value.match(regex);
+
+    if (compared === null || compared.length !== 2) {
+        throw new Error("Invalid coordinate format.");
+    }
+
+    let [lat, lng] = compared.map(Number);
+
+    if (value.includes('[')) {
+        [lat, lng] = [lng, lat]; // swap lat and lng if the input format is [lng, lat]
+    }
+
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+        throw new Error("Invalid latitude or longitude value.");
+    }
+
+    return `(${lat}, ${lng})`;
+};
+function formatCoords(...args) {
+    let coordinates = [];
+
+    for (let arg of args) {
+        try {
+            let coordinat = normalizeCoord(arg);
+            coordinates.push(coordinat);
+        } catch (error) {
+            // Skip the invalid coordinate
+        }
+    }
+
+    return `(${coordinates.join(', ')})`;
+}
+
+console.log(formatCoords("42.9755,-77.4369", "[-62.1234, 42.9755]", "300,-9000")); 
+
 
 // Question 7
-/*
-function mimeFromFilename(filename) {
-    let match = /\.(\w+)$/.exec(filename);
-    let extension = match ? match[1].toLowerCase() : null;
-
-    switch (extension) {
-        case 'html':
-        case 'htm':
-            return 'text/html';
-        case 'css':
-            return 'text/css';
-        case 'js':
-            return 'text/javascript';
-        case 'jpg':
-        case 'jpeg':
-            return 'image/jpeg';
-        case 'gif':
-            return 'image/gif';
-        case 'bmp':
-            return 'image/bmp';
-        case 'ico':
-        case 'cur':
-            return 'image/x-icon';
-        case 'png':
-            return 'image/png';
-        case 'svg':
-            return 'image/svg+xml';
-        case 'webp':
-            return 'image/webp';
-        case 'mp3':
-            return 'audio/mp3';
-        case 'wav':
-            return 'audio/wav';
-        case 'mp4':
-            return 'video/mp4';
-        case 'webm':
-            return 'video/webm';
-        case 'json':
-            return 'application/json';
-        case 'mpeg':
-            return 'video/mpeg';
-        case 'csv':
-            return 'text/csv';
-        case 'ttf':
-            return 'font/ttf';
-        case 'woff':
-            return 'font/woff';
-        case 'zip':
-            return 'application/zip';
-        case 'avi':
-            return 'video/x-msvideo';
-        default:
-            return 'application/octet-stream';
-    }
-};
-
-console.log(mimeFromFilename('/User/Documents/readme.txt'));  // Outputs: 'text/plain'
-console.log(mimeFromFilename('/User/Documents/image.jpg'));  // Outputs: 'image/jpeg'
-console.log(mimeFromFilename('/User/Documents/script.js'));  // Outputs: 'text/javascript'
-console.log(mimeFromFilename('/User/Documents/unknown.xyz'));  // Outputs: 'application/octet-stream'
-console.log(mimeFromFilename('/User/Documents/readme.txt')); // Expected: 'text/plain'
-console.log(mimeFromFilename('index.html')); // Expected: 'text/html'
-console.log(mimeFromFilename('picture.jpeg')); // Expected: 'image/jpeg'
-console.log(mimeFromFilename('script.js')); // Expected: 'text/javascript'
-console.log(mimeFromFilename('unknownfile.xyz')); // Expected: 'application/octet-stream'
-console.log(mimeFromFilename('noextension')); // Expected: 'application/octet-stream'
-
-console.log();
-console.log();
-console.log();
 function mimeFromFilename(filename) {
     // Regular expression to extract the file extension
-    const result = filename.match(/\.([0-9a-z]+)([\?#].*)?$/i);
+    const extraction = filename.match(/\.([0-9a-z]+)([\?#].*)?$/i);
 
     // Convert the extension to lowercase if it exists
-    const extension = result ? result[1].toLowerCase() : null;
+    const extension = extraction ? extraction[1].toLowerCase() : null;
 
     // Determine the MIME type based on the file extension
     switch (extension) {
@@ -256,112 +222,89 @@ function mimeFromFilename(filename) {
             return 'application/octet-stream';
     }
 };
-console.log(mimeFromFilename('/User/Documents/readme.txt'));  // Outputs: 'text/plain'
-console.log(mimeFromFilename('/User/Documents/image.jpg'));  // Outputs: 'image/jpeg'
-console.log(mimeFromFilename('/User/Documents/script.js'));  // Outputs: 'text/javascript'
-console.log(mimeFromFilename('/User/Documents/unknown.xyz'));  // Outputs: 'application/octet-stream'
-console.log(mimeFromFilename('/User/Documents/readme.txt')); // Expected: 'text/plain'
-console.log(mimeFromFilename('index.html')); // Expected: 'text/html'
-console.log(mimeFromFilename('picture.jpeg')); // Expected: 'image/jpeg'
-console.log(mimeFromFilename('script.js')); // Expected: 'text/javascript'
-console.log(mimeFromFilename('unknownfile.xyz')); // Expected: 'application/octet-stream'
-console.log(mimeFromFilename('noextension')); // Expected: 'application/octet-stream'
+console.log(mimeFromFilename('/User/Documents/readme.txt')); 
+console.log(mimeFromFilename('/User/Documents/image.jpg'));  
+console.log(mimeFromFilename('/User/Documents/script.js'));  
+console.log(mimeFromFilename('/User/Documents/unknown.xyz'));  
+console.log(mimeFromFilename('/User/Documents/readme.txt')); 
+console.log(mimeFromFilename('index.html')); 
+console.log(mimeFromFilename('picture.jpeg')); 
+console.log(mimeFromFilename('script.js')); 
+console.log(mimeFromFilename('unknownfile.xyz')); 
+console.log(mimeFromFilename('noextension')); 
 
-*/
 
-/*
+
+
+
 // Question 8
 
 function generateLicenseLink(licenseCode, targetBlank) {
-    let match = /CC-(.+)/.exec(licenseCode);
-    let code = match ? match[1].toLowerCase() : null;
-    let url = `https://creativecommons.org/licenses/${code}/4.0/`;
-    let text = '';
-    let target = targetBlank ? ' target="_blank"' : '';
+  let matching = /CC-(.+)/.exec(licenseCode);
+  let code = matching ? matching[1].toLowerCase() : null;
+  let url = `https://creativecommons.org/licenses/${code}/4.0/`;
+  let text = "";
+  let target = targetBlank ? 'target="_blank"' : "";
 
-    switch (licenseCode) {
-        case 'CC-BY':
-            text = 'Creative Commons Attribution License';
-            break;
-        case 'CC-BY-NC':
-            text = 'Creative Commons Attribution-NonCommercial License';
-            break;
-        case 'CC-BY-SA':
-            text = 'Creative Commons Attribution-ShareAlike License';
-            break;
-        case 'CC-BY-ND':
-            text = 'Creative Commons Attribution-NoDerivs License';
-            break;
-        case 'CC-BY-NC-SA':
-            text = 'Creative Commons Attribution-NonCommercial-ShareAlike License';
-            break;
-        case 'CC-BY-NC-ND':
-            text = 'Creative Commons Attribution-NonCommercial-NoDerivs License';
-            break;
-        default:
-            url = 'https://choosealicense.com/no-permission/';
-            text = 'All Rights Reserved';
-    }
+  switch (licenseCode) {
+    case "CC-BY":
+      text = "Creative Commons Attribution License";
+      break;
+    case "CC-BY-NC":
+      text = "Creative Commons Attribution-NonCommercial License";
+      break;
+    case "CC-BY-SA":
+      text = "Creative Commons Attribution-ShareAlike License";
+      break;
+    case "CC-BY-ND":
+      text = "Creative Commons Attribution-NoDerivs License";
+      break;
+    case "CC-BY-NC-SA":
+      text = "Creative Commons Attribution-NonCommercial-ShareAlike License";
+      break;
+    case "CC-BY-NC-ND":
+      text = "Creative Commons Attribution-NonCommercial-NoDerivs License";
+      break;
+    default:
+      url = "https://choosealicense.com/no-permission/";
+      text = "All Rights Reserved";
+  }
 
-    return `<a href="${url}"${target}>${text}</a>`;
-};
-console.log(generateLicenseLink('CC-BY-NC', true));  // Outputs: '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">Creative Commons Attribution-NonCommercial License</a>'
-console.log(generateLicenseLink('CC-BY-NC'));  // Outputs: '<a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial License</a>'
-console.log(generateLicenseLink('XYZ', true));  // Outputs: '<a href="https://choosealicense.com/no-permission/" target="_blank">All Rights Reserved</a>'
-console.log();
-console.log();
-console.log();
-console.log();
-
-console.log(generateLicenseLink('CC-BY-NC'));
-console.log(generateLicenseLink('CC-BY-SA', true));
-console.log(generateLicenseLink('UNKNOWN', false));
+  return `<a href="${url}"${target}>${text}</a>`;
+}
+console.log(generateLicenseLink("CC-BY-NC", true));
+console.log(generateLicenseLink("CC-BY-NC"));
+console.log(generateLicenseLink("XYZ", true));
 
 */
-/*
+
 // Question 9
 function pureBool(value) {
-    if (typeof value === 'boolean') {
-        return value;
-    }
+  if (typeof value === "boolean") {
+    return value;
+  }
 
-    let strValue = String(value).toLowerCase();
+  let strValue = String(value).toLowerCase();
 
-    if (/^(yes|y|oui|o|t|true|vrai|v|1)$/.test(strValue)) {
-        return true;
-    }
+  if (/^(yes|y|oui|o|t|true|vrai|v|1)$/.test(strValue)) {
+    return true;
+  }
 
-    if (/^(no|non|n|f|false|faux|0)$/.test(strValue) || Number(strValue) < 0) {
-        return false;
-    }
+  if (/^(no|non|n|f|false|faux|0)$/.test(strValue) || Number(strValue) < 0) {
+    return false;
+  }
 
-    throw new Error('invalid value');
+  throw new Error("invalid value");
 }
 
-console.log(pureBool('Yes'));  // Outputs: true
-console.log(pureBool('no'));  // Outputs: false
-console.log(pureBool('OUI'));  // Outputs: true
-console.log(pureBool('Non'));  // Outputs: false
-console.log(pureBool('1'));  // Outputs: true
-console.log(pureBool('-1'));  // Outputs: false
-console.log(pureBool('unknown'));  // Throws: Error: invalid value
+console.log(pureBool("Yes")); // Outputs: true
+console.log(pureBool("no")); // Outputs: false
+console.log(pureBool("OUI")); // Outputs: true
+console.log(pureBool("Non")); // Outputs: false
+console.log(pureBool("1")); // Outputs: true
+console.log(pureBool("-1")); // Outputs: false
 
-console.log();
-console.log();
-console.log();
-
-// console.log(pureBool('Yes')); // Expected: true
-// console.log(pureBool('f')); // Expected: false
-// console.log(pureBool('Oui')); // Expected: true
-// console.log(pureBool('Non')); // Expected: false
-// console.log(pureBool(true)); // Expected: true
-// console.log(pureBool(false)); // Expected: false
-// console.log(pureBool(1)); // Expected: true
-// console.log(pureBool(0)); // Expected: false
-// console.log(pureBool(-5)); // Expected: false
-// console.log(pureBool('random')); // Expected: Error 'invalid value'
-
-*/
+/*
 
 // // Question 9b
 // function every(...args) {
