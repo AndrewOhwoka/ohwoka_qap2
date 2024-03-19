@@ -15,7 +15,10 @@
 //     const regex = /^<video src="[^"]*"( width="\d+")?( controls)?><\/video>$/;
 //     console.log(regex.test(videoTag) ? videoTag : 'Invalid video tag');
 // }
+let monthString = month < 10 ? "0" + month : month;
+  let dayString = day < 10 ? "0" + day : day;
 
+  return `${year}-${monthString}-${dayString}`;
 
 //----------------------------------------
 // Question 5

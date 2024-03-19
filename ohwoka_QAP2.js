@@ -51,7 +51,7 @@ console.log(createVideo('http://distribution.bbb3d.renderfarming.net/video/mp4/b
 console.log(createVideo('   http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_60fps_normal.mp4  ', 'not a number'));
 
 
-*/
+
 
 // Question 3
 
@@ -74,34 +74,57 @@ function parseDateString(dateString) {
 
 console.log(parseDateString('2022-05-01'));
 // console.log(parseDateString('2022-5-02'));
-// // console.log(parseDateString('2022-05-2'));
-// // console.log(parseDateString(''));
+// console.log(parseDateString('2022-05-2'));
+// console.log(parseDateString(''));
 
-/*
 // question4
 function toDateString(value) {
-    if (!(value instanceof Date) || isNaN(value.getTime())) {
-        throw new Error('Invalid Date object.');
+  // check if value is a Date object and if it is not, throw an error.
+  if (!(value instanceof Date) || isNaN(value.getTime())) {
+    throw new Error("Invalid Date object.");
+  }
+  // Get the year, month and day from the date object
+  const year = value.getFullYear();
+  let month = value.getMonth() + 1; // JavaScript counts months from 0 to 11
+  let day = value.getDate();
+
+  // Format the month and day with leading '0' if necessary
+  let monthString = month < 10 ? "0" + month : month;
+  let dayString = day < 10 ? "0" + day : day;
+
+  return `${year}-${monthString}-${dayString}`;
+}
+
+console.log(toDateString(new Date("2022-5-02")));
+console.log(toDateString(new Date("2022-05-2")));
+
+
+// Question 5-
+function normalizeCoord(value) {
+    const regex = /(-?\d+\.?\d*)/g;
+    let compare = value.match(regex);
+
+    if (compare === null ||compare.length !== 2) {
+        throw new Error("Invalid coordinate format.");
     }
 
-    const year = value.getFullYear();
-    let month = value.getMonth() + 1; // JavaScript counts months from 0 to 11
-    let day = value.getDate();
+    let [lat, lng] = compare.map(Number);
 
-    // Pad month and day with leading '0' if necessary
-    month = month < 10 ? '0' + month : month;
-    day = day < 10 ? '0' + day : day;
+    if (value.includes('[')) {
+        [lat, lng] = [lng, lat]; // swap lat and lng if the input format is [lng, lat]
+    }
 
-    return `${year}-${month}-${day}`;
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+        throw new Error("Invalid latitude or longitude value.");
+    }
+
+    return `(${lat}, ${lng})`;
 };
-console.log(toDateString(new Date('2022-05-01')));
-console.log(toDateString(new Date('2022-5-02')));
-console.log(toDateString(new Date('2022-05-2')));
-console.log(toDateString(new Date('')));
-console.log(toDateString(new Date('2022.05.01')));
-
+console.log(normalizeCoord("42.9755,-77.4369")); 
+console.log(normalizeCoord("[-77.4369, 42.9755]")); 
 */
-// Question 5-6 - work in progress
+
+// Question 6
 
 // Question 7
 /*
