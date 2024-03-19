@@ -1,0 +1,82 @@
+-----------------------------------------------------------------------------------
+
+classwork
+function getHello(str) {
+    const regex = /hello/i;
+    const filtered = str.filter(element => regex.test(element));
+    filtered.forEach(element => console.log(element));
+}
+
+function getHello(str) {
+    const regex = /hello/i;
+    const filtered = str.filter(element => regex.test(element));
+    filtered.forEach(element => console.log(element));
+}
+getHello(salutations);
+----------------------------------------------------------------
+The function getHello(str) you provided is already using a regular expression to solve the problem. Here's how it works:
+
+const regex = /hello/; - This line creates a regular expression that matches any string containing "hello".
+
+const filtered = str.filter(element => regex.test(element)); - This line uses the filter() method to create a new array from str. It includes only those elements for which the regex.test(element) returns true, i.e., the elements that contain "hello".
+
+filtered.forEach(element => console.log(element)); - This line uses the forEach() method to iterate over each element in the filtered array and print it to the console.
+
+So, this function takes an array of strings str, filters out the strings that contain "hello", and prints them to the console.
+
+------------------------------------------
+var strWith10 =
+  "There are 10 people in room number 10. Call all of the 10 people outside";
+
+function replaceTen(str) {
+    const regex = /10/g;
+    const replaced = str.replace(regex, 'Ten');
+    return replaced;
+}
+
+console.log(replaceTen(strWith10));
+
+---------------------------------------------
+This function works as follows:
+
+The regular expression /10/g matches all occurrences of '10' in the string.
+The replace() method replaces all matches with 'Ten'.
+The function returns the modified string.
+/
+----------------------------------
+function cleanUp(value) {
+    value = value.replace(/([.!?])\s{2}/g, '$1 ');
+    value = value.replace(/"/g, "'");
+    value = value.replace(/\(\s+/g, '(');
+    value = value.replace(/\s+\)/g, ')');
+    return value;
+}
+
+----------------------------------------------
+This function works as follows:
+
+The regular expression /([.!?])\s{2}/g matches any period, question mark, or exclamation point followed by two spaces. It replaces these matches with the matched punctuation and one space.
+The regular expression /"/g matches all double-quotes and replaces them with single-quotes.
+The regular expressions /\(\s+/g and /\s+\)/g match any spaces after ( and before ), respectively, and remove them.
+The function returns the modified string.
+
+---------------
+function fixPostalCode(postalCode) {
+    postalCode = postalCode.trim().toUpperCase();
+    postalCode = postalCode.replace(/^([A-CEGHJ-NPR-TVXY]\d[A-CEGHJ-NPR-TV-Z])[-\s]?(\d[A-CEGHJ-NPR-TV-Z]\d)$/, "$1 $2");
+    
+    const regex = /^[A-CEGHJ-NPR-TVXY]\d[A-CEGHJ-NPR-TV-Z] \d[A-CEGHJ-NPR-TV-Z]\d$/;
+    if (!regex.test(postalCode)) {
+        throw new Error('Invalid postal code');
+    }
+    
+    return postalCode;
+}
+
+---------------
+This function works as follows:
+
+The regular expression /^([A-CEGHJ-NPR-TVXY]\d[A-CEGHJ-NPR-TV-Z])[-\s]?(\d[A-CEGHJ-NPR-TV-Z]\d)$/ matches a valid Canadian postal code that may have a dash or missing space as the fourth character. It replaces these matches with the correct format.
+The regular expression /^[A-CEGHJ-NPR-TVXY]\d[A-CEGHJ-NPR-TV-Z] \d[A-CEGHJ-NPR-TV-Z]\d$/ matches a valid Canadian postal code with a space as the fourth character.
+If the postal code does not match this regular expression, an Error is thrown.
+The function returns the formatted postal code.

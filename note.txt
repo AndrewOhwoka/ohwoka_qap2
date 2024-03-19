@@ -1,0 +1,295 @@
+color colour cbnmms,nndndnxcnxc i have to co to the place yesterday.a b c d e f g h i j k l m n o p q r s t u v w x y z 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 +, −, ×, ÷, =, ≠, <, >, ±, ∞, π, $, €, £, ¥, ₹, ₿, °, µ, Ω, mol, λ, ♥, ★, ♫, ✓, ✗, ☮, ☯, →, ←, ↑, ↓, ↔.
+
+cate 
+cats
+cat1
+cat34
+cat.
+cati
+cata
+catu
+catu
+
+/\d\d\d\s?\d\d\d\s?\d\d\d\d/
+7097640764
+7097640764
+
+
+/\(?\d\d\d\)?\s?\d\d\d\s?\d\d\d\d/
+(709)7640764
+
+/\(?\d\d\d\)?\s*?\d\d\d\s*?\d\d\d\d/
+709  764    0764
+
+/(\(?\d\d\d\)?\s*?)?\d\d\d\s*?\d\d\d\d/
+combine the d with {}
+/(\(?\d{3}\)?\s*?)?\d{3}\s*?\d{4}/
+764  0764
+
+/(\(?\d{3}\)?[-\s]*)?\d{3}[-\s]*?\d{4}/
+709-764-0764
+
+/\.$/
+ And you.
+
+
+
+question 1
+
+Here's a step-by-step plan:
+
+Define a function named snake.
+Use the trim() method to remove leading and trailing whitespace from the input string.
+Use the toLowerCase() method to convert all characters in the string to lowercase.
+Use the replace() method with a regular expression to replace all internal spaces, tabs, or dots with underscores ('_').
+Here's the JavaScript code that implements this plan:
+
+function snake(str) {
+    return str.trim().toLowerCase().replace(/[\s\.]+/g, '_');
+}
+This function works as follows:
+
+str.trim() removes leading and trailing whitespace.
+toLowerCase() converts all characters to lowercase.
+replace(/[\s\.]+/g, '_') replaces all occurrences of one or more spaces, tabs, or dots with an underscore. The g flag in the regular expression ensures that all occurrences are replaced, not just the first one.
+
+2. GitHub Copilot
+Here's a step-by-step plan:
+
+Define a function named createVideo.
+Use the trim() method to remove leading and trailing whitespace from the src argument.
+Check if the width argument is a valid integer. If it is, include it in the video tag. Otherwise, ignore it.
+Check if the controls argument is true. If it is, include the controls attribute in the video tag. Otherwise, ignore it.
+Return the properly formatted video element.
+Here's the JavaScript code that implements this plan:
+function createVideo(src, width, controls) {
+    src = src.trim();
+    let videoTag = `<video src="${src}"`;
+
+    if (Number.isInteger(width) || (typeof width === 'string' && width.trim() !== '' && !isNaN(width))) {
+        videoTag += ` width="${width}"`;
+    }
+
+    if (controls === true) {
+        videoTag += ' controls';
+    }
+
+    videoTag += '></video>';
+
+    return videoTag;
+}
+This function works as follows:
+
+src = src.trim() removes leading and trailing whitespace from the src argument.
+The if statement checks if width is a valid integer. If it is, it's included in the video tag.
+The if statement checks if controls is true. If it is, the controls attribute is included in the video tag.
+The function returns the properly formatted video element.
+
+
+
+question 4
+GitHub Copilot
+Here's a step-by-step plan:
+
+Define a function named toDateString.
+Check if the value argument is a valid Date object. If it's not, throw an error.
+Extract the year, month, and day from the Date object using the getFullYear(), getMonth(), and getDate() methods, respectively.
+Pad the month and day values with a leading '0' if necessary.
+Return the date string formatted as YYYY-MM-DD.
+Here's the JavaScript code that implements this plan:
+
+This function works as follows:
+
+It checks if value is a valid Date object. If it's not, an error is thrown.
+It extracts the year, month, and day from the Date object.
+It pads the month and day with a leading '0' if necessary.
+It returns the date string formatted as YYYY-MM-DD.
+function toDateString(value) {
+    if (!(value instanceof Date) || isNaN(value.getTime())) {
+        throw new Error('Invalid Date object.');
+    }
+
+    const year = value.getFullYear();
+    let month = value.getMonth() + 1; // JavaScript counts months from 0 to 11
+    let day = value.getDate();
+
+    // Pad month and day with leading '0' if necessary
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+
+    return `${year}-${month}-${day}`;
+}
+
+or
+
+
+
+
+function toDateString(value) {
+    if (!(value instanceof Date) || isNaN(value.getTime())) {
+        throw new Error('Invalid Date object.');
+    }
+
+    const year = value.getFullYear();
+    let month = value.getMonth() + 1; // JavaScript counts months from 0 to 11
+    let day = value.getDate();
+
+    // Pad month and day with leading '0' if necessary
+    month = month < 10 ? '0' + month : month;
+    day = day < 10 ? '0' + day : day;
+
+    const dateString = `${year}-${month}-${day}`;
+
+    // Validate the date string with a regular expression
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!regex.test(dateString)) {
+        throw new Error('Date string is not in the expected format (YYYY-MM-DD).');
+    }
+
+    return dateString;
+}
+
+GitHub Copilot
+The function you provided is already correctly converting a Date object to a string in the format 'YYYY-MM-DD'. It doesn't require a regular expression to accomplish this task. Regular expressions are typically used for pattern matching within strings, not for formatting date objects.
+
+However, if you want to validate the output of the function using a regular expression, you can do so. Here's how you can modify the function to include a regular expression check:
+
+;
+This modification adds a regular expression check after the date string is created. The regular expression ^\d{4}-\d{2}-\d{2}$ checks if the date string is in the format 'YYYY-MM-DD'. If the date string does not match this pattern, an error is thrown.
+
+5 Here's a step-by-step plan:
+
+Define a function named normalizeCoord.
+Use a regular expression to extract the latitude and longitude values from the value argument.
+Check if the latitude and longitude values are valid. If they're not, throw an error.
+Return the coordinates formatted as "(lat, lng)".
+Here's the JavaScript code that implements this plan:
+function normalizeCoord(value) {
+    const regex = /(-?\d+(\.\d+)?)/g;
+    const matches = value.match(regex);
+
+    if (matches === null || matches.length !== 2) {
+        throw new Error('Invalid coordinate format.');
+    }
+
+    let [lat, lng] = matches.map(Number);
+
+    if (value.includes('[')) { // If the format is [lng, lat], swap the values
+        [lat, lng] = [lng, lat];
+    }
+
+    if (lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+        throw new Error('Invalid latitude or longitude value.');
+    }
+
+    return `(${lat}, ${lng})`;
+}
+This function works as follows:
+
+The regular expression (-?\d+(\.\d+)?) matches decimal numbers, including negative numbers.
+If the value does not contain exactly two matches, an error is thrown.
+If the format is [lng, lat], the latitude and longitude values are swapped.
+If the latitude or longitude value is out of range, an error is thrown.
+The function returns the coordinates formatted as "(lat, lng)".
+
+
+
+7
+function mimeFromFilename(filename) {
+    let match = /\.(\w+)$/.exec(filename);
+    let extension = match ? match[1].toLowerCase() : null;
+
+    switch (extension) {
+        case 'html':
+        case 'htm':
+            return 'text/html';
+        case 'css':
+            return 'text/css';
+        case 'js':
+            return 'text/javascript';
+        case 'jpg':
+        case 'jpeg':
+            return 'image/jpeg';
+        case 'gif':
+            return 'image/gif';
+        case 'bmp':
+            return 'image/bmp';
+        case 'ico':
+        case 'cur':
+            return 'image/x-icon';
+        case 'png':
+            return 'image/png';
+        case 'svg':
+            return 'image/svg+xml';
+        case 'webp':
+            return 'image/webp';
+        case 'mp3':
+            return 'audio/mp3';
+        case 'wav':
+            return 'audio/wav';
+        case 'mp4':
+            return 'video/mp4';
+        case 'webm':
+            return 'video/webm';
+        case 'json':
+            return 'application/json';
+        case 'mpeg':
+            return 'video/mpeg';
+        case 'csv':
+            return 'text/csv';
+        case 'ttf':
+            return 'font/ttf';
+        case 'woff':
+            return 'font/woff';
+        case 'zip':
+            return 'application/zip';
+        case 'avi':
+            return 'video/x-msvideo';
+        default:
+            return 'application/octet-stream';
+    }
+}
+
+In this code, the exec() method is used to apply the regular expression \.(\w+)$ to the filename. This regular expression matches a period followed by one or more word characters at the end of the string. If the filename matches this regular expression, exec() returns an array where the first element is the entire match, and the second element is the captured group (the file extension). The file extension is then converted to lowercase and used in the switch statement to determine the MIME type. If the filename doesn't match the regular expression, exec() returns null, and the MIME type 'application/octet-stream' is returned.
+
+8
+
+
+9
+
+function pureBool(value) {
+    if (typeof value === 'boolean') {
+        return value;
+    }
+
+    let strValue = String(value).toLowerCase();
+
+    if (/^(yes|y|oui|o|t|true|vrai|v|1)$/.test(strValue)) {
+        return true;
+    }
+
+    if (/^(no|non|n|f|false|faux|0)$/.test(strValue) || Number(strValue) < 0) {
+        return false;
+    }
+
+    throw new Error('invalid value');
+}
+console.log(pureBool('Yes'));  // Outputs: true
+console.log(pureBool('no'));  // Outputs: false
+console.log(pureBool('OUI'));  // Outputs: true
+console.log(pureBool('Non'));  // Outputs: false
+console.log(pureBool('1'));  // Outputs: true
+console.log(pureBool('-1'));  // Outputs: false
+console.log(pureBool('unknown'));  // Throws: Error: invalid value
+
+In these examples, the pureBool() function correctly converts the input value to a Boolean according to the specified rules. If the value is not a recognized "true" or "false" type value, it throws an error.
+
+9a
+
+
+9b
+You can test these functions with the following code:
+
+In these examples, the every, any, and none functions correctly check if all, any, or none of the arguments are "true" values, respectively. If the pureBool function throws an error, they catch the error and return false for every and any, and true for none.
+
+ 
