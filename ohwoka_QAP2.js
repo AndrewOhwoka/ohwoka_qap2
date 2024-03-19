@@ -2,8 +2,11 @@
 // //   Date: <19-03-2024>
 
 /*
+// Question 1
 function snake(str) {
-    return str.trim().toLowerCase().replace(/[\s\.]+/g, '_');
+    let trimmed = str.trim();
+    let lowerCase = trimmed.toLowerCase();
+    return lowerCase.replace(/[\s\.]+/g, '_');
 };
 console.log(snake('abc'));
 console.log(snake(' ABC '));
@@ -15,6 +18,9 @@ console.log(snake('A.BC'));
 console.log(snake(' A..  B   C '));
 
 
+
+
+// Question 2
 
 function createVideo(src, width, controls) {
     src = src.trim();
@@ -30,11 +36,12 @@ function createVideo(src, width, controls) {
 
     videoTag += '></video>';
 
-    return videoTag;
-    // either the return of below
+    const regex = /^<video src="[^"]*"( width="\d+")?( controls)?><\/video>$/;
+    if (!regex.test(videoTag)) {
+        throw new Error('Invalid video tag');
+    }
 
-    // const regex = /^<video src="[^"]*"( width="\d+")?( controls)?><\/video>$/;
-    // console.log(regex.test(videoTag) ? videoTag : 'Invalid video tag');
+    return videoTag;
 };
 
 console.log(createVideo('https://example.com/video.mp4', 640, true));
@@ -44,6 +51,7 @@ console.log(createVideo('http://distribution.bbb3d.renderfarming.net/video/mp4/b
 console.log(createVideo('   http://distribution.bbb3d.renderfarming.net/video/mp4/bbb_sunflower_1080p_60fps_normal.mp4  ', 'not a number'));
 
 
+*/
 
 // Question 3
 
@@ -69,6 +77,7 @@ console.log(parseDateString('2022-05-01'));
 // // console.log(parseDateString('2022-05-2'));
 // // console.log(parseDateString(''));
 
+/*
 // question4
 function toDateString(value) {
     if (!(value instanceof Date) || isNaN(value.getTime())) {
